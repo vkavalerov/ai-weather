@@ -1,5 +1,5 @@
 import React from "react";
-import { MantineProvider, Center } from '@mantine/core';
+import { MantineProvider, Center, Text} from '@mantine/core';
 
 export default function App() {
     return (
