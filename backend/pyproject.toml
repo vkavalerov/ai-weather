@@ -1,13 +1,15 @@
 [tool.poetry]
-name = "flaskproject"
+name = "pycharmprojects"
 version = "0.1.0"
 description = ""
 authors = ["geeeeenccc <gencgeray@gmail.com>"]
 readme = "README.md"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
 [tool.poetry.dependencies]
 python = "^3.10"
-flask = "^2.3.1"
 
 
 [build-system]
