@@ -26,7 +26,7 @@ def get_weather():
     base_url = "https://api.openweathermap.org/data/2.5/forecast?"
     complete_url = base_url + "q=" + test_loc + "&appid=" + api_key
 
-    response = requests.get(complete_url)
+    response = requests.get(complete_url, timeout=5)
     data = response.json()
 
     weather_data = []
