@@ -1,7 +1,5 @@
 """Module providing Flask server usage"""
 from flask import Flask, jsonify
-
-"""Module providing requests usage"""
 import requests
 
 app = Flask(__name__)
@@ -10,7 +8,6 @@ app = Flask(__name__)
 @app.route("/get_weather", methods=["GET"])
 def get_weather():
     """Get location and time span
-
     Return json object with weather data for this location and period
     """
 
@@ -36,7 +33,6 @@ def get_weather():
     for forecast in data["list"]:
         if start_date <= forecast["dt_txt"] <= end_date:
             weather_data.append(forecast["weather"][0]["description"])
-
     return jsonify(weather_data)
 
 
@@ -47,5 +43,5 @@ def hello_world():
     return "Hello World!"
 
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
