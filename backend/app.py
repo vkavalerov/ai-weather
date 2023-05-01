@@ -4,7 +4,8 @@ from flask import Flask, request
 import requests
 from dotenv import load_dotenv
 
-# import openai
+
+#  import openai
 
 app = Flask(__name__)
 load_dotenv()
@@ -12,7 +13,6 @@ load_dotenv()
 openweathermap_api_key = os.environ.get(
     "OPENWEATHERMAP_API_KEY"
 )  # API key from openweathermap.org
-openai_api_key = os.environ.get("OPENAI_API_KEY")  # API key from openai.com
 
 
 @app.route("/get_weather", methods=["GET"])
