@@ -1,11 +1,18 @@
 """Module providing Flask server usage"""
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import requests
+import os
+from dotenv import load_dotenv
 
 # import openai
-# import json
 
 app = Flask(__name__)
+load_dotenv()
+
+openweathermap_api_key = os.environ.get(
+    "OPENWEATHERMAP_API_KEY"
+)  # API key from openweathermap.org
+openai_api_key = os.environ.get("OPENAI_API_KEY")  # API key from openai.com
 
 
 @app.route("/get_weather", methods=["GET"])
@@ -24,9 +31,10 @@ def get_weather():
     start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
 
-    api_key = "cd9b969bbe27d1a7006d234402947f0a"  # API key from openweathermap.org
     base_url = "https://api.openweathermap.org/data/2.5/forecast"
-    complete_url = base_url + "?q=" + location + "&units=metric&appid=" + api_key
+    complete_url = (
+        base_url + "?q=" + location + "&units=metric&appid=" + openweathermap_api_key
+    )
 
     response = requests.get(complete_url, timeout=5)
     data = response.json()
@@ -36,26 +44,22 @@ def get_weather():
         if start_date <= forecast["dt_txt"] <= end_date:
             # weather is an object that has multiple features such as:
             # city, temperature, pressure, etc
-            weather = {
-                "city": location,
-                "temperature": forecast["main"]["temp"],
-                "temp_min": forecast["main"]["temp_min"],
-                "temp_max": forecast["main"]["temp_max"],
-                "pressure": forecast["main"]["pressure"],
-                "humidity": forecast["main"]["humidity"],
-                "description": forecast["weather"][0]["description"],
-                "icon": forecast["weather"][0]["icon"],
-            }
-            weather_data.append(weather)
-    return jsonify(weather_data, 200)
+            # weather = {
+            #     "city": location,
+            #     "temperature": forecast["main"]["temp"],
+            #     "temp_min": forecast["main"]["temp_min"],
+            #     "temp_max": forecast["main"]["temp_max"],
+            #     "pressure": forecast["main"]["pressure"],
+            #     "humidity": forecast["main"]["humidity"],
+            #     "description": forecast["weather"][0]["description"],
+            #     "icon": forecast["weather"][0]["icon"],
+            # }
+            weather_data.append(data)
+    return weather_data, 200
 
 
 @app.route("/")
 def hello_world():
     """Return 'Hello World!'"""
 
-    return "Hello World!"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return "Hello World!", 200
