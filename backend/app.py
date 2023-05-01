@@ -1,7 +1,7 @@
 """Module providing Flask server usage"""
+import os
 from flask import Flask, request
 import requests
-import os
 from dotenv import load_dotenv
 
 # import openai
