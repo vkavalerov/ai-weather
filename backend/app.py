@@ -50,15 +50,6 @@ def get_weather():
     return jsonify(weather_data, 200)
 
 
-@app.route("/describe_weather", methods=["GET"])
-def describe_weather():
-    """Get data about weather
-    Return ai-generated text describing weather
-    in certain time period
-    """
-    pass
-
-
 @app.route("/")
 def hello_world():
     """Return 'Hello World!'"""
