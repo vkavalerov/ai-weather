@@ -1,39 +1,37 @@
-"""Module providing Flask server usage"""
+"""
+These modules define a Flask app that provides weather data
+and descriptions for a given location and time period.
+"""
 import os
 from flask import Flask, request
 import requests
 from dotenv import load_dotenv
 
-
-#  import openai
-
 app = Flask(__name__)
 load_dotenv()
 
-openweathermap_api_key = os.environ.get(
+OPENWEATHERMAP_API_KEY = os.environ.get(
     "OPENWEATHERMAP_API_KEY"
-)  # API key from openweathermap.org
+)
+OPENWEATHERMAP_API_URL = os.environ.get(
+    "OPENWEATHERMAP_API_URL"
+)
 
 
 @app.route("/get_weather", methods=["GET"])
 def get_weather():
-    """Get location and time span
-    Return json object with weather data for this location and period
     """
+    This endpoint retrieves weather data for a given location and time period.
 
-    # I have yet to understand how we get the data so....
-    # I'll test dates and location in this commit
-    # start_date = "2023-05-01 12:00:00"  # test start date
-    # end_date = "2023-05-04 06:00:00"  # test end date
-    # location = "Odessa"
-
+    Returns:
+        A JSON object containing an array of weather descriptions for the given time period.
+    """
     location = request.args.get("location")
     start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
 
-    base_url = "https://api.openweathermap.org/data/2.5/forecast"
     complete_url = (
-        base_url + "?q=" + location + "&units=metric&appid=" + openweathermap_api_key
+            OPENWEATHERMAP_API_URL + "?q=" + location + "&units=metric&appid=" + OPENWEATHERMAP_API_KEY
     )
 
     response = requests.get(complete_url, timeout=5)
@@ -60,6 +58,5 @@ def get_weather():
 
 @app.route("/")
 def hello_world():
-    """Return 'Hello World!'"""
-
+    """Test endpoint."""
     return "Hello World!", 200
