@@ -3,9 +3,11 @@ These modules define a Flask app that provides weather data
 and descriptions for a given location and time period.
 """
 import os
+from datetime import datetime
 from flask import Flask, request
 import requests
 from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 load_dotenv()
@@ -23,9 +25,17 @@ def get_weather():
         A JSON object containing an array of weather descriptions for the given time period.
     """
     location = request.args.get("location")
-    start_date = request.args.get("start_date")
+    now = datetime.now()
+    start_date = now.strftime("%Y-%m-%d %H:%M:%S")
+    # start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
 
+    if not location:
+        return {"ERROR": "Location parameter is missing."}, 400
+    if not start_date:
+        return {"ERROR": "Start date parameter is missing."}, 400
+    if not end_date:
+        return {"ERROR": "End date parameter is missing."}, 400
     complete_url = (
         OPENWEATHERMAP_API_URL
         + "?q="
