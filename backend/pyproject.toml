@@ -3,7 +3,6 @@ name = "weather-ai"
 version = "0.1.0"
 description = ""
 authors = ["geeeeenccc <gencgeray@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
