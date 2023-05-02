@@ -10,12 +10,8 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 load_dotenv()
 
-OPENWEATHERMAP_API_KEY = os.environ.get(
-    "OPENWEATHERMAP_API_KEY"
-)
-OPENWEATHERMAP_API_URL = os.environ.get(
-    "OPENWEATHERMAP_API_URL"
-)
+OPENWEATHERMAP_API_KEY = os.environ.get("OPENWEATHERMAP_API_KEY")
+OPENWEATHERMAP_API_URL = os.environ.get("OPENWEATHERMAP_API_URL")
 
 
 @app.route("/get_weather", methods=["GET"])
@@ -31,7 +27,11 @@ def get_weather():
     end_date = request.args.get("end_date")
 
     complete_url = (
-            OPENWEATHERMAP_API_URL + "?q=" + location + "&units=metric&appid=" + OPENWEATHERMAP_API_KEY
+        OPENWEATHERMAP_API_URL
+        + "?q="
+        + location
+        + "&units=metric&appid="
+        + OPENWEATHERMAP_API_KEY
     )
 
     response = requests.get(complete_url, timeout=5)
