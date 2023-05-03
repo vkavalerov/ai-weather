@@ -24,16 +24,21 @@ def get_weather():
     Returns:
         A JSON object containing an array of weather descriptions for the given time period.
     """
+
+    # Fetching parameters from request
     location = request.args.get("location")
-    now = datetime.now()
-    start_date = now.strftime("%Y-%m-%d %H:%M:%S")
     days = request.args.get("days")
 
+    # Validating requested parameters
     if not location:
         return {"Parameter location is missing."}, 400
     if not days:
         return {"Parameter days is missing."}, 400
+    # Creating start and end dates of the period
+    now = datetime.now()
+    start_date = now.strftime("%Y-%m-%d %H:%M:%S")
     end_date = datetime.strftime(now + timedelta(days=int(days)), "%Y-%m-%d %H:%M:%S")
+
     complete_url = (
         OPENWEATHERMAP_API_URL
         + "?q="
