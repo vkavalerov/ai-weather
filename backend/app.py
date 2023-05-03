@@ -37,7 +37,7 @@ def get_weather():
     # Creating start and end dates of the period
     now = datetime.now()
     start_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strftime(now + timedelta(days=int(days)), "%Y-%m-%d %H:%M:%S")
+    end_date = datetime.strftime(now + timedelta(days=int(days) + 1), "%Y-%m-%d 00:00:00")
 
     complete_url = (
         OPENWEATHERMAP_API_URL
