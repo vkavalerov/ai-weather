@@ -25,9 +25,7 @@ def get_weather():
         A JSON object containing an array of weather descriptions for the given time period.
     """
     location = request.args.get("location")
-    # now() returns a 'datetime' object representing the current date and time
     now = datetime.now()
-    # strftime() returns String representing a date and time
     start_date = now.strftime("%Y-%m-%d %H:%M:%S")
     days = request.args.get("days")
 
