@@ -29,14 +29,13 @@ def get_weather():
     now = datetime.now()
     # strftime() returns String representing a date and time
     start_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strftime(
-        now + timedelta(days=int(request.args.get("end_date"))), "%Y-%m-%d %H:%M:%S"
-    )
+    days = request.args.get("days")
 
     if not location:
         return {"Parameter location is missing."}, 400
-    if not end_date:
-        return {"Parameter end date is missing."}, 400
+    if not days:
+        return {"Parameter days is missing."}, 400
+    end_date = datetime.strftime(now + timedelta(days=int(days)), "%Y-%m-%d %H:%M:%S")
     complete_url = (
         OPENWEATHERMAP_API_URL
         + "?q="
