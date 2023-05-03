@@ -31,13 +31,15 @@ def get_weather():
 
     # Validating requested parameters
     if not location:
-        return {"Parameter location is missing."}, 400
+        return "Parameter location is missing.", 400
     if not days:
-        return {"Parameter days is missing."}, 400
+        return "Parameter days is missing.", 400
     # Creating start and end dates of the period
     now = datetime.now()
     start_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strftime(now + timedelta(days=int(days) + 1), "%Y-%m-%d 00:00:00")
+    end_date = datetime.strftime(
+        now + timedelta(days=int(days) + 1), "%Y-%m-%d 00:00:00"
+    )
 
     complete_url = (
         OPENWEATHERMAP_API_URL
