@@ -36,9 +36,10 @@ def get_weather():
         days = int(days)
     except ValueError:
         return "Parameter days is invalid.", 400
-    now = datetime.now()
-    start_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strftime(now + timedelta(days=days + 1), "%Y-%m-%d 00:00:00")
+    start_date = datetime.now()
+    end_date = (start_date + timedelta(days=days + 1)).replace(
+        hour=3, minute=0, second=0
+    )
 
     complete_url = (
         OPENWEATHERMAP_API_URL
@@ -53,7 +54,7 @@ def get_weather():
 
     weather_data = []
     for forecast in data["list"]:
-        if start_date <= forecast["dt_txt"] <= end_date:
+        if start_date <= datetime.fromtimestamp(forecast["dt"]) <= end_date:
             weather_data.append(forecast)
     return weather_data, 200
 
