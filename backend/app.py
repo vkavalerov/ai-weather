@@ -22,24 +22,23 @@ def get_weather():
     This endpoint retrieves weather data for a given location and time period.
 
     Returns:
-        A JSON object containing an array of weather descriptions for the given time period.
+        A JSON object containing an array of weather descriptions for the given days.
     """
 
-    # Fetching parameters from request
     location = request.args.get("location")
     days = request.args.get("days")
 
-    # Validating requested parameters
     if not location:
         return "Parameter location is missing.", 400
     if not days:
         return "Parameter days is missing.", 400
-    # Creating start and end dates of the period
+    try:
+        days = int(days)
+    except ValueError:
+        return "Parameter days is invalid.", 400
     now = datetime.now()
     start_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = datetime.strftime(
-        now + timedelta(days=int(days) + 1), "%Y-%m-%d 00:00:00"
-    )
+    end_date = datetime.strftime(now + timedelta(days=days + 1), "%Y-%m-%d 00:00:00")
 
     complete_url = (
         OPENWEATHERMAP_API_URL
@@ -55,18 +54,6 @@ def get_weather():
     weather_data = []
     for forecast in data["list"]:
         if start_date <= forecast["dt_txt"] <= end_date:
-            # weather is an object that has multiple features such as:
-            # city, temperature, pressure, etc
-            # weather = {
-            #     "city": location,
-            #     "temperature": forecast["main"]["temp"],
-            #     "temp_min": forecast["main"]["temp_min"],
-            #     "temp_max": forecast["main"]["temp_max"],
-            #     "pressure": forecast["main"]["pressure"],
-            #     "humidity": forecast["main"]["humidity"],
-            #     "description": forecast["weather"][0]["description"],
-            #     "icon": forecast["weather"][0]["icon"],
-            # }
             weather_data.append(forecast)
     return weather_data, 200
 
