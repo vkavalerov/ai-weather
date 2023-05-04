@@ -52,6 +52,8 @@ def get_weather():
     )
 
     response = requests.get(complete_url, timeout=5)
+    if response.status_code != 200:
+        return "Got an error from OpenWeatherMap API: " + response.text, 502
     data = response.json()
 
     weather_data = []
