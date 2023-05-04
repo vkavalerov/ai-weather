@@ -26,16 +26,18 @@ def get_weather():
     """
 
     location = request.args.get("location")
-    days = request.args.get("days")
+    days_str = request.args.get("days")
 
     if not location:
         return "Parameter location is missing.", 400
-    if not days:
+    if not days_str:
         return "Parameter days is missing.", 400
     try:
-        days = int(days)
+        days = int(days_str)
+        if days <= 0 or days >= 15:
+            return "Parameter days can only take values between 1 and 14.", 400
     except ValueError:
-        return "Parameter days is invalid.", 400
+        return "Parameter days must be an integer.", 400
     start_date = datetime.now()
     end_date = (start_date + timedelta(days=days + 1)).replace(
         hour=3, minute=0, second=0
