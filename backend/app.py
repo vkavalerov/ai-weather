@@ -64,7 +64,7 @@ def get_weather():
     return weather_data, 200
 
 
-@app.route("/describe_weather", methods=["POST"])
+@app.route("/describe_weather", methods=["GET"])
 def describe_weather():
     """
     This endpoint generates a description of the weather
@@ -73,26 +73,25 @@ def describe_weather():
     Returns:
         A JSON object containing the ai-generated description.
     """
-    weather_data = request.json("weather_data")
+    weather_data = request.args.get("weather_data")
 
     if not weather_data:
         return "Parameter weather data is missing.", 400
     openai.api_key = OPENAI_API_KEY
     prompt = (
-        f"Тебе будет дан прогноз погоды , и твоя задача написать небольшую реакцию на этот прогноз. "
+        f"Тебе будет дан прогноз погоды, и твоя задача написать небольшую реакцию на этот прогноз. Твоя реакция обязательно должна быть на русском языке!"
         f"Не расписывай на каждый день, просто 4-6 предложений как реакция на погоду."
         f"Прогноз погоды: {weather_data}."
     )
     openai_response = openai.ChatCompletion.create(
-        prompt=prompt,
-        max_tokens=1048,
-        n=1,
-        stop=None,
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
         temperature=0.7,
         model="gpt-3.5-turbo",
     )
 
-    description = openai_response.choices[0].text
+    description = openai_response.choices[0].message.content
 
     return description, 200
 
