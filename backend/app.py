@@ -7,13 +7,14 @@ from datetime import datetime, timedelta
 from flask import Flask, request
 import requests
 from dotenv import load_dotenv
-
+import openai
 
 app = Flask(__name__)
 load_dotenv()
 
 OPENWEATHERMAP_API_KEY = os.environ.get("OPENWEATHERMAP_API_KEY")
 OPENWEATHERMAP_API_URL = os.environ.get("OPENWEATHERMAP_API_URL")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 
 @app.route("/get_weather", methods=["GET"])
@@ -61,6 +62,39 @@ def get_weather():
         if start_date <= datetime.fromtimestamp(forecast["dt"]) <= end_date:
             weather_data.append(forecast)
     return weather_data, 200
+
+
+@app.route("/describe_weather", methods=["GET"])
+def describe_weather():
+    """
+    This endpoint generates a description of the weather
+    for a given location and time period.
+
+    Returns:
+        A JSON object containing the ai-generated description.
+    """
+    weather_data = request.args.get("weather_data")
+
+    if not weather_data:
+        return "Parameter weather data is missing.", 400
+    openai.api_key = OPENAI_API_KEY
+    prompt = (
+        f"Тебе будет дан прогноз погоды, и твоя задача написать небольшую реакцию на этот прогноз."
+        f"Твоя реакция обязательно должна быть на русском языке!"
+        f"Не расписывай на каждый день, просто 4-6 предложений как реакция на погоду."
+        f"Прогноз погоды: {weather_data}."
+    )
+    openai_response = openai.ChatCompletion.create(
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.7,
+        model="gpt-3.5-turbo",
+    )
+
+    description = openai_response.choices[0].message.content
+
+    return description, 200
 
 
 @app.route("/")

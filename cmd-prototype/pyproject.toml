@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cmd-prototype"
+version = "0.1.0"
+description = ""
+authors = ["Vladimir Kavalerov <vladimir@kavalerov.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.30.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
