@@ -7,7 +7,7 @@ export default function App() {
   return (
     <MantineProvider theme={{ fontFamily: "Greycliff CF, sans-serif" }}>
       <Routes>
-        <Route path="/weather" element={<WeatherPage />} />
+        <Route path="/" element={<WeatherPage />} />
       </Routes>
     </MantineProvider>
   );
