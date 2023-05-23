@@ -6,7 +6,7 @@ authors = ["Vladimir Kavalerov <vladimir@kavalerov.net>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-requests = "^2.30.0"
+requests = "^2.31.0"
 python-dotenv = "^1.0.0"
 
 
