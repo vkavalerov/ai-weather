@@ -4,7 +4,7 @@ and descriptions for a given location and time period.
 """
 import os
 from datetime import datetime, timedelta
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 from dotenv import load_dotenv
 import openai
@@ -61,7 +61,9 @@ def get_weather():
     for forecast in data["list"]:
         if start_date <= datetime.fromtimestamp(forecast["dt"]) <= end_date:
             weather_data.append(forecast)
-    return weather_data, 200
+    response = jsonify(weather_data)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response, 200
 
 
 @app.route("/describe_weather", methods=["GET"])
@@ -94,7 +96,9 @@ def describe_weather():
 
     description = openai_response.choices[0].message.content
 
-    return description, 200
+    response = jsonify(description)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response, 200
 
 
 @app.route("/")
