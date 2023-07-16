@@ -19,7 +19,6 @@ import {
     CopyButton,
     Textarea,
     createStyles,
-    Flex,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 const API_URL = "http://127.0.0.1:5000";
