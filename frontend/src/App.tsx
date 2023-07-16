@@ -1,5 +1,5 @@
 import React from "react";
-import { MantineProvider, Center, Text } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
 import WeatherPage from "./pages/Weather";
 
