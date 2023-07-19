@@ -119,8 +119,6 @@ export default function WeatherPage() {
                             />
                             <Button
                                 onClick={() => {
-                                    console.log("clicked");
-                                    console.log(city);
                                     getWeather();
                                 }}
                                 color="orange"
