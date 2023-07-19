@@ -5,8 +5,6 @@ import {
     Header,
     Footer,
     Text,
-    MediaQuery,
-    Burger,
     useMantineTheme,
     Button,
     Group,
