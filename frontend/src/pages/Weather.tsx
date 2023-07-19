@@ -46,7 +46,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export default function AppShellDemo() {
+export default function WeatherPage() {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
     const [city, setCity] = useState("");
