@@ -161,15 +161,6 @@ export default function WeatherPage() {
                             height: "100%",
                         }}
                     >
-                        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                            <Burger
-                                opened={opened}
-                                onClick={() => setOpened((o) => !o)}
-                                size="sm"
-                                color={theme.colors.gray[6]}
-                                mr="xl"
-                            />
-                        </MediaQuery>
 
                         <Text color="white" italic>
                             Weather-Ai!
