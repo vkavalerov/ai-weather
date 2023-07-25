@@ -16,7 +16,9 @@ import {
     TextInput,
     CopyButton,
     Textarea,
-    createStyles
+    createStyles,
+    MediaQuery,
+    Burger
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 const API_URL = "http://127.0.0.1:5000";
@@ -159,7 +161,15 @@ export default function WeatherPage() {
                             height: "100%",
                         }}
                     >
-
+                        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                            <Burger
+                                opened={opened}
+                                onClick={() => setOpened((o) => !o)}
+                                size="sm"
+                                color="white"
+                                mr="xl"
+                            />
+                        </MediaQuery>
                         <Text color="white" italic>
                             Weather-Ai!
                         </Text>
