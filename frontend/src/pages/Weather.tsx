@@ -16,7 +16,7 @@ import {
     TextInput,
     CopyButton,
     Textarea,
-    createStyles,
+    createStyles
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 const API_URL = "http://127.0.0.1:5000";
@@ -151,7 +151,7 @@ export default function WeatherPage() {
             }
             header={
                 <Header height={{ base: 50, md: 55 }} p="md" className={classes.header}>
-                    <div
+                    <Box
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -163,7 +163,7 @@ export default function WeatherPage() {
                         <Text color="white" italic>
                             Weather-Ai!
                         </Text>
-                    </div>
+                    </Box>
                 </Header>
             }
         >
