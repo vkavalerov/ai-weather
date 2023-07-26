@@ -1,60 +1,32 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     AppShell,
-    Navbar,
-    Header,
-    Footer,
+    Textarea,
+    CopyButton,
+    Tooltip,
+    ActionIcon,
+    Box,
     Text,
     useMantineTheme,
-    Button,
-    Group,
-    ActionIcon,
-    Tooltip,
-    Center,
-    Box,
-    Stack,
-    TextInput,
-    CopyButton,
-    Textarea,
-    createStyles,
-    MediaQuery,
-    Burger
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
+import CustomNavbar from "./Navbar/Navbar";
+import CustomHeader from "./Header/Header";
+import CustomFooter from "./Footer/Footer";
+
 const API_URL = "http://127.0.0.1:5000";
 
-const useStyles = createStyles((theme) => ({
-    header: {
-        backgroundColor: "orange",
-        borderBottom: 0,
-    },
-    burger: {
-        [theme.fn.largerThan("sm")]: {
-            display: "none",
-        },
-    },
-    loginButton: {
-        marginLeft: "initial",
-    },
-    signUpButton: {
-        marginLeft: theme.spacing.xs,
-    },
-    footer: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-}));
-
-export default function WeatherPage() {
+const Weather: React.FC = () => {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
     const [city, setCity] = useState("");
     const [days, setDays] = useState("");
     const [description, setDescription] = useState("");
-    const [weatherData, setWeatherData] = useState<any>(null); // Define the weatherData state
+    const [weatherData, setWeatherData] = useState<any>(null);
 
-    const { classes } = useStyles();
+    const toggleOpened = () => {
+        setOpened((prevOpened) => !prevOpened);
+    };
 
     async function getWeather() {
         const respWeather = await fetch(
@@ -90,99 +62,26 @@ export default function WeatherPage() {
                             : theme.colors.gray[0],
                 },
             }}
-            navbarOffsetBreakpoint="sm"
-            asideOffsetBreakpoint="sm"
             navbar={
-                <Navbar
-                    p="md"
-                    hiddenBreakpoint="sm"
-                    hidden={!opened}
-                    width={{ sm: 200, lg: 300 }}
-                >
-                    <Center p="md">
-                        <Stack spacing="lg">
-                            <TextInput
-                                placeholder="Search location"
-                                onChange={(event) => {
-                                    console.log(event.currentTarget.value);
-                                    setCity(event.currentTarget.value);
-                                }}
-                                value={city}
-                            />
-                            <TextInput
-                                placeholder="Enter days count (1-5)"
-                                onChange={(event) => {
-                                    console.log(event.currentTarget.value);
-                                    setDays(event.currentTarget.value);
-                                }}
-                                value={days}
-                            />
-                            <Button
-                                onClick={() => {
-                                    getWeather();
-                                }}
-                                color="orange"
-                            >
-                                Get Weather
-                            </Button>
-                        </Stack>
-                    </Center>
-                    <Navbar.Section grow> </Navbar.Section>
-                    <Navbar.Section>
-                        <Group
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Button variant="default" className={classes.loginButton}>
-                                Log in
-                            </Button>
-                            <Button className={classes.signUpButton} color="orange">
-                                Sign up
-                            </Button>
-                        </Group>
-                    </Navbar.Section>
-                </Navbar>
+                <CustomNavbar
+                    opened={opened}
+                    toggleOpened={toggleOpened}
+                    getWeather={getWeather}
+                    setCity={setCity}
+                    city={city}
+                    setDays={setDays}
+                    days={days}
+                />
             }
-            footer={
-                <Footer height={40} p="md" className={classes.footer}>
-                    GG VK YB ©
-                </Footer>
-            }
-            header={
-                <Header height={{ base: 50, md: 55 }} p="md" className={classes.header}>
-                    <Box
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            fontSize: 24,
-                            height: "100%",
-                        }}
-                    >
-                        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                            <Burger
-                                opened={opened}
-                                onClick={() => setOpened((o) => !o)}
-                                size="sm"
-                                color="white"
-                                mr="xl"
-                            />
-                        </MediaQuery>
-                        <Text color="white" italic>
-                            Weather-Ai!
-                        </Text>
-                    </Box>
-                </Header>
-            }
+            header={<CustomHeader opened={opened} toggleOpened={toggleOpened} />}
+            footer={<CustomFooter />}
         >
             <Textarea
                 p="sm"
                 placeholder="Weather description"
                 value={description}
                 autosize
-                rightSectionWidth={44} // Set the width of the right section
+                rightSectionWidth={44}
                 rightSection={
                     <CopyButton value={description} timeout={2000}>
                         {({ copied, copy }) => (
@@ -213,7 +112,7 @@ export default function WeatherPage() {
                 }
             />
 
-            {weatherData && ( // Render weather data if available
+            {weatherData && (
                 <Box ta="center">
                     <Text>Date: {weatherData.date}</Text>
                     <Text>Location: {weatherData.location}</Text>
@@ -225,4 +124,6 @@ export default function WeatherPage() {
             )}
         </AppShell>
     );
-}
+};
+
+export default Weather;
