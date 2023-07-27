@@ -7,11 +7,12 @@ import {
     ActionIcon,
     Box,
     Text,
-    } from "@mantine/core";
+} from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 import CustomNavbar from "../Navbar/Navbar";
 import CustomHeader from "../Header/Header";
 import CustomFooter from "../Footer/Footer";
+import { FormattedWeatherData } from "./WeatherDataInterface";
 import { weatherStyles } from "./WeatherStyles";
 
 const API_URL = "http://127.0.0.1:5000";
@@ -39,7 +40,7 @@ const WeatherPage: React.FC = () => {
         );
         const description = await respDescription.json();
 
-        const formattedWeatherData = {
+        const formattedWeatherData: FormattedWeatherData = {
             date: weatherData.date,
             location: weatherData.location,
             temperature: weatherData.temperature,
