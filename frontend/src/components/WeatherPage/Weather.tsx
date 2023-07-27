@@ -13,11 +13,11 @@ import { IconCopy, IconCheck } from "@tabler/icons-react";
 import CustomNavbar from "../Navbar/Navbar";
 import CustomHeader from "../Header/Header";
 import CustomFooter from "../Footer/Footer";
+import { weatherStyles } from "./WeatherStyles";
 
 const API_URL = "http://127.0.0.1:5000";
 
 const WeatherPage: React.FC = () => {
-    const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
     const [city, setCity] = useState("");
     const [days, setDays] = useState("");
@@ -28,6 +28,7 @@ const WeatherPage: React.FC = () => {
         setOpened((prevOpened) => !prevOpened);
     };
 
+    const { classes } = weatherStyles();
     async function getWeather() {
         const respWeather = await fetch(
             `${API_URL}/get_weather?location=${city}&days=${days}`
@@ -54,14 +55,7 @@ const WeatherPage: React.FC = () => {
 
     return (
         <AppShell
-            styles={{
-                main: {
-                    background:
-                        theme.colorScheme === "dark"
-                            ? theme.colors.dark[8]
-                            : theme.colors.gray[0],
-                },
-            }}
+            className={classes.appShell}
             navbar={
                 <CustomNavbar
                     opened={opened}
@@ -93,12 +87,7 @@ const WeatherPage: React.FC = () => {
                                 <ActionIcon
                                     color={copied ? "teal" : "gray"}
                                     onClick={copy}
-                                    style={{
-                                        position: "absolute",
-                                        top: 8,
-                                        right: 8,
-                                        cursor: "pointer",
-                                    }}
+                                    className={classes.actionIcon}
                                 >
                                     {copied ? (
                                         <IconCheck size="1rem" />
