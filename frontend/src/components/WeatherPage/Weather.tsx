@@ -7,8 +7,7 @@ import {
     ActionIcon,
     Box,
     Text,
-    useMantineTheme,
-} from "@mantine/core";
+    } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 import CustomNavbar from "../Navbar/Navbar";
 import CustomHeader from "../Header/Header";
