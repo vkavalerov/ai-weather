@@ -16,7 +16,7 @@ import CustomFooter from "./Footer/Footer";
 
 const API_URL = "http://127.0.0.1:5000";
 
-const Weather: React.FC = () => {
+const WeatherPage: React.FC = () => {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
     const [city, setCity] = useState("");
@@ -126,4 +126,4 @@ const Weather: React.FC = () => {
     );
 };
 
-export default Weather;
+export default WeatherPage;
