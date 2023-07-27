@@ -1,5 +1,6 @@
 import React from "react";
 import { Header, Text, Box, MediaQuery, Burger } from "@mantine/core";
+import { headerStyles } from "./HeaderStyles";
 
 interface HeaderProps {
   opened: boolean;
@@ -7,32 +8,21 @@ interface HeaderProps {
 }
 
 const CustomHeader: React.FC<HeaderProps> = ({ opened, toggleOpened }) => {
+  const { classes } = headerStyles();
+
   return (
-    <Header
-      height={{ base: 50, md: 55 }}
-      p="md"
-      style={{ backgroundColor: "orange", borderBottom: 0 }}
-    >
-      <Box
-        style={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: 24,
-          height: "100%",
-        }}
-      >
+    <Header height={{ base: 50, md: 55 }} className={classes.header}>
+      <Box className={classes.box}>
         <MediaQuery largerThan="sm" styles={{ display: "none" }}>
           <Burger
             opened={opened}
             onClick={toggleOpened}
-            size="sm"
+            className={classes.burger}
+            size="md"
             color="white"
-            mr="xl"
           />
         </MediaQuery>
-        <Text color="white" italic>
-          Weather-Ai!
-        </Text>
+        <Text className={classes.text}>Weather-Ai!</Text>
       </Box>
     </Header>
   );
