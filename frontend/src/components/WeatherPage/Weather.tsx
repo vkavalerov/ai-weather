@@ -10,9 +10,9 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
-import CustomNavbar from "./Navbar/Navbar";
-import CustomHeader from "./Header/Header";
-import CustomFooter from "./Footer/Footer";
+import CustomNavbar from "../Navbar/Navbar";
+import CustomHeader from "../Header/Header";
+import CustomFooter from "../Footer/Footer";
 
 const API_URL = "http://127.0.0.1:5000";
 
