@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Center,
-  Group,
-  Navbar,
-  Stack,
-  TextInput,
-  Button,
-  createStyles, // временный имопрт
-} from "@mantine/core";
+import { Center, Group, Navbar, Stack, TextInput, Button } from "@mantine/core";
+import { navbarStyles } from "./NavbarStyles";
+
 interface NavbarProps {
   opened: boolean;
   toggleOpened: () => void;
@@ -18,16 +12,6 @@ interface NavbarProps {
   days: string;
 }
 
-//временная константа
-const useStyles = createStyles((theme) => ({
-  loginButton: {
-    marginLeft: "initial",
-  },
-  signUpButton: {
-    marginLeft: theme.spacing.xs,
-  },
-}));
-
 const CustomNavbar: React.FC<NavbarProps> = ({
   opened,
   getWeather,
@@ -36,8 +20,7 @@ const CustomNavbar: React.FC<NavbarProps> = ({
   setDays,
   days,
 }) => {
-  //временная константа
-  const { classes } = useStyles();
+  const { classes } = navbarStyles();
 
   return (
     <Navbar
@@ -64,26 +47,18 @@ const CustomNavbar: React.FC<NavbarProps> = ({
             }}
             value={days}
           />
-          <Button onClick={getWeather} color="orange">
+          <Button onClick={getWeather} className={classes.getWeatherButton}>
             Get Weather
           </Button>
         </Stack>
       </Center>
       <Navbar.Section grow> </Navbar.Section>
       <Navbar.Section>
-        <Group
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <Group className={classes.group}>
           <Button variant="default" className={classes.loginButton}>
             Log in
           </Button>
-          <Button className={classes.signUpButton} color="orange">
-            Sign up
-          </Button>
+          <Button className={classes.signUpButton}>Sign up</Button>
         </Group>
       </Navbar.Section>
     </Navbar>
