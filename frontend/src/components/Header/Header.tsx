@@ -13,7 +13,7 @@ const CustomHeader: React.FC<HeaderProps> = ({ opened, toggleOpened }) => {
   return (
     <Header height={{ base: 50, md: 55 }} className={classes.header}>
       <Box className={classes.box}>
-        <MediaQuery largerThan="sm" styles={{}}>
+        <MediaQuery largerThan="sm" styles={{display: "none"}}>
           <Burger
             opened={opened}
             onClick={toggleOpened}
